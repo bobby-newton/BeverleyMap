@@ -45,12 +45,14 @@
     </tbody>
   </table>
 
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src='js/lib/knockout.js'></script>
-  <!-- <script src='js/lib/axios.js'></script> -->
-  <script src="js/lib/jquery.min.js"></script>
-  <script src='js/utils/places.js'></script>
-  <script src='js/main.js'></script>
+  <div id="beverleyMap">Map appears here</div>
+
+  <script defer async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1DP9mEFFDEeEOvTT2BxmizqgpN9a1R68&callback=initialiseBeverleyMap&libraries=places"></script>
+  <script type="text/javascript" src='js/lib/knockout.js'></script>
+  <script type="text/javascript" src='js/lib/axios.js'></script>
+  <script type="text/javascript" src="js/lib/jquery.min.js"></script>
+  <script type="text/javascript" src='js/utils/places.js'></script>
+  <script type="text/javascript" src='js/main.js'></script>
 </body>
 
 </html>

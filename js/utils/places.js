@@ -1,27 +1,35 @@
-axios.defaults.baseURL = "https://maps.googleapis.com/maps/api/place";
+var beverleyMap;
+var service;
+var infowindow;
 
-var PLACES_API_KEY = "AIzaSyB1DP9mEFFDEeEOvTT2BxmizqgpN9a1R68";
+function initialiseBeverleyMap() {
+    console.log("initialiseBeverleyMap");
 
-var GET_POI_URL = "/textsearch/json";
+    var beverley = new google.maps.LatLng(53.8411032, -0.4668126);
 
-var QUERY_PARAM_QUERY = "query";
-var QUERY_PARAM_TYPE = "type";
-var QUERY_PARAM_KEY = "key";
-
-function getPointOfInterest(query, type) {
-
-    axios.get(GET_POI_URL, {
-            params: {
-                "query": query,
-                "type": type,
-                "key": PLACES_API_KEY
-            }
-        })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
+    beverleyMap = new google.maps.Map(
+        document.getElementById("beverleyMap"), {
+            center: beverley,
+            zoom: 10
         });
 
+    var request = {
+        location: beverley,
+        radius: '500',
+        type: ['restaurant']
+    };
+
+    service = new google.maps.places.PlacesService(beverleyMap);
+    service.nearbySearch(request, callback);
+}
+
+function callback(results, status) {
+    console.log("callback");
+
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+            var place = results[i];
+            createMarker(results[i]);
+        }
+    }
 }

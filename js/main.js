@@ -85,13 +85,15 @@ function PointsOfInterestViewModel() {
         self.addAvailableCategories(categories);
     }
 
+    // initialiseBeverleyMap();
+
     // Operations
     self.addPointOfInterest = function () {
 
         var query = self.query().replace(' ', '+');
         var type = self.selectedCategory();
 
-        getPointOfInterest(query, type);
+        // getPointOfInterest(query, type);
 
         var newPointsOfInterest = new PointOfInterest(name = self.query(), addres = "Undefined", coords = new Coords(latitude = 0.0, longitude = 0.0), [self.selectedCategory()]);
         self.pointsOfInterest.push(newPointsOfInterest);
