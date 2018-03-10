@@ -3,12 +3,12 @@
 
 <head>
   <link rel="stylesheet" href="css/lib/tailwind.css">
-
   <style>
     /* Always set the map height explicitly to define the size of the div
      * element that contains the map. */
     #beverleyMap {
-      height: 100%;
+      height: 50%;
+      width: 50%;
     }
     /* Optional: Makes the sample page fill the window. */
     html, body {
@@ -22,7 +22,8 @@
 <body>
   <h2>My Favourite Points-Of-Interest</h2>
 
-  <input data-bind="textInput: query"/>
+  <label for="name">Name:</label>
+  <input id="name" data-bind="textInput: query"/>
   <select data-bind="options: availableCategories, value: selectedCategory"></select>
   <button data-bind="click: addPointOfInterest">Add Point-Of-Interest</button>
 

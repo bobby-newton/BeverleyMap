@@ -13,10 +13,13 @@ function initialiseBeverleyMap() {
             zoom: 10
         });
 
+    infowindow = new google.maps.InfoWindow();
+
     var request = {
         location: beverley,
-        radius: '500',
-        type: ['restaurant']
+        radius: '50000',
+        type: ['point_of_interest'],
+        name: 'Market',
     };
 
     service = new google.maps.places.PlacesService(beverleyMap);
@@ -25,6 +28,7 @@ function initialiseBeverleyMap() {
 
 function callback(results, status) {
     console.log("callback");
+    console.log(status);
 
     if (status == google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
@@ -32,4 +36,19 @@ function callback(results, status) {
             createMarker(results[i]);
         }
     }
+}
+
+function createMarker(place) {
+    console.log("createMarker");
+
+    var placeLoc = place.geometry.location;
+    var marker = new google.maps.Marker({
+        map: beverleyMap,
+        position: place.geometry.location
+    });
+
+    google.maps.event.addListener(marker, 'click', function () {
+        infowindow.setContent(place.name);
+        infowindow.open(beverleyMap, this);
+    });
 }
