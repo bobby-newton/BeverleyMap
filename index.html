@@ -1,9 +1,56 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/lib/tailwind.css">
 </head>
+
 <body>
-  <p class='bg-blue'>Hello World</p>
+  <h2>My Favourite Points-Of-Interest</h2>
+
+  <input data-bind="textInput: query"/>
+  <select data-bind="options: availableCategories, value: selectedCategory"></select>
+  <button data-bind="click: addPointOfInterest">Add Point-Of-Interest</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>
+          <strong>Name</strong>
+        </th>
+        <th>
+          <strong>Address</strong>
+        </th>
+        <th>
+          <strong>Latitude</strong>
+        </th>
+        <th>
+          <strong>Longitude</strong>
+        </th>
+        <th>
+          <strong>Categories</strong>
+        </th>
+      </tr>
+    </thead>
+    <tbody data-bind="foreach: pointsOfInterest">
+      <tr>
+        <td><input data-bind="value: name" /></td>
+        <td data-bind="text: address"></td>
+        <td data-bind="text: coords().latitude"></td>
+        <td data-bind="text: coords().longitude"></td>
+        <td data-bind="foreach: categories">
+          <li data-bind="text: $data"></li>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src='js/lib/knockout.js'></script>
+  <!-- <script src='js/lib/axios.js'></script> -->
+  <script src="js/lib/jquery.min.js"></script>
+  <script src='js/utils/places.js'></script>
+  <script src='js/main.js'></script>
 </body>
+
 </html>
