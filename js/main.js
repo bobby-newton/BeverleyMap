@@ -1,105 +1,152 @@
-// A class that represents a point-of-interest's latitude and longitude coordinates
-function Coords(latitude, longitude) {
-    var self = this;
-    self.latitude = ko.observable(latitude);
-    self.longitude = ko.observable(longitude);
-}
-
-// A class that represents an entry in the point of interests table
-function PointOfInterest(name, address, coords, categories) {
-    var self = this;
-    self.name = ko.observable(name);
-    self.address = ko.observable(address);
-    self.coords = ko.observable(coords);
-    self.categories = ko.observableArray(categories); // e.g. ["category1","category2",..,"categoryN"]
-}
+var pointsOfInterest = ko.observableArray();
+var availableCategories = ko.observableArray(["all"]);
+var placeIds = [];
 
 // The viewmodel for the UI, together with default points of interest
 function PointsOfInterestViewModel() {
     var self = this;
 
     // Default points of interest
-    var defaultPointsOfInterest = [
-        new PointOfInterest(
-            name = "Beverley Minster",
-            address = "38 Highgate, Beverley HU17 0DN, UK",
-            coords = new Coords(latitude = 53.8392946, longitude = -0.4244797),
-            categories = ["church", "place_of_worship", "point_of_interest", "establishment"]
-        ),
-        new PointOfInterest(
-            name = "Beverley Westwood",
-            address = "Walkington Road, Beverley HU17 8LY, UK",
-            coords = new Coords(latitude = 53.8418956, longitude = -0.4517736),
-            categories = ["park", "point_of_interest", "establishment"]
-        ),
-        new PointOfInterest(
-            name = "Hayride",
-            address = "Grange Way, Beverley HU17 9GP, UK",
-            coords = new Coords(latitude = 53.8582845, longitude = -0.4344561),
-            categories = ["bar", "restaurant", "food", "point_of_interest", "establishment"]
-        ),
-        new PointOfInterest(
-            name = "Anytime Fitness Beverley",
-            address = "Flemingate Centre, Flemingate HU17 0NQ, United Kingdom",
-            coords = new Coords(latitude = 53.839723, longitude = -0.420148),
-            categories = ["gym", "health", "point_of_interest", "establishment"]
-        ),
-        new PointOfInterest(
-            name = "Flemingate",
-            address = "23 A Chantry Ln, Beverley HU17 0EE, UK",
-            coords = new Coords(latitude = 53.83985149999999, longitude = -0.4207279),
-            categories = ["shopping_mall", "point_of_interest", "establishment"]
-        )
+    var defaultPlacesIds = [
+        "ChIJ_f_vDxDHeEgRCtUJ_pxEhfA", // Beverley Minster
+        "ChIJ_9-UdyPHeEgRMWShop9pv9M", // Beverley Westwood
+        "ChIJ-2YaUnvHeEgRcXhA4EloCYA", // Hayride
+        "ChIJAU7om1zHeEgRVK1GIecUslE", // Anytime Fitness Beverley
+        "ChIJT3SJd1vHeEgRWYZgSVakSO4" // Flemingate
     ];
 
-    self.query = ko.observable("");
+    self.queryText = ko.observable();
+    self.queryCategory = ko.observable("all");
 
-    // Editable points of interest
-    self.pointsOfInterest = ko.observableArray([
-        defaultPointsOfInterest[0],
-        defaultPointsOfInterest[1],
-        defaultPointsOfInterest[2],
-        defaultPointsOfInterest[3],
-        defaultPointsOfInterest[4]
-    ]);
+    self.filterText = ko.observable();
+    self.filterCategory = ko.observable("all");
 
-    // Editable categories
-    self.availableCategories = ko.observableArray();
+    // Initialise an empty map with the center placed on Beverley
+    initialiseBeverleyMap();
 
-    // Select category - no category selected by default
-    self.selectedCategory = ko.observable("point_of_interest");
-
-    // Behaviour
-    self.addAvailableCategories = function (categories) {
-        for (j = 0; j < categories.length; j++) {
-            var category = categories[j];
-            if (self.availableCategories.indexOf(category) === -1) {
-                self.availableCategories.push(category);
-            }
-        }
-    }
-
-    // Initialise default categories
-    for (i = 0; i < defaultPointsOfInterest.length; i++) {
-        var categories = defaultPointsOfInterest[i].categories();
-        self.addAvailableCategories(categories);
-    }
-
-    // initialiseBeverleyMap();
+    // Load the markers for the default points of interest
+    loadMarkers(defaultPlacesIds);
 
     // Operations
-    self.addPointOfInterest = function () {
+    self.addPointsOfInterest = function () {
+        var query = self.queryText().replace(' ', '+');
+        var type = self.queryCategory();
 
-        var query = self.query().replace(' ', '+');
-        var type = self.selectedCategory();
+        var types = [];
+        if (type != "all") {
+            types = [type];
+        }
 
-        // getPointOfInterest(query, type);
+        searchPointsOfInterest(query, types);
 
-        var newPointsOfInterest = new PointOfInterest(name = self.query(), addres = "Undefined", coords = new Coords(latitude = 0.0, longitude = 0.0), [self.selectedCategory()]);
-        self.pointsOfInterest.push(newPointsOfInterest);
-        self.addAvailableCategories(newPointsOfInterest.categories());
     }
+
+    self.changeMarker  = function (pointOfInterest) {
+        changeMarkerIcon( pointOfInterest );
+    }
+
+    self.filteredPointsOfInterest = ko.computed(function () {
+        var filterCategory = self.filterCategory();
+        var filterText = self.filterText();
+
+        // Everything is a match
+        if (filterCategory === "all" && !filterText) { 
+
+            ko.utils.arrayForEach(pointsOfInterest(), function(pointOfInterest) {
+               
+                var marker = pointOfInterest.marker;
+                showMarker(marker);
+
+            });
+
+            return pointsOfInterest();
+
+        // Only items with name filterText are a match
+        } else if (filterCategory === "all" && filterText) { 
+            return ko.utils.arrayFilter(pointsOfInterest(), function (pointOfInterest) {
+                var isMatch = pointOfInterest.name.toLowerCase().startsWith(filterText.toLowerCase());
+
+                var marker = pointOfInterest.marker;
+                if ( isMatch ) {
+                    showMarker(marker);
+                } else {
+                    hideMarker(marker);
+                }
+
+                return isMatch;
+            });
+
+        // Only items with categories.has(filterCategory) and name filterText are a match
+        } else if (filterCategory != "all" && filterText) {
+            return ko.utils.arrayFilter(pointsOfInterest(), function (pointOfInterest) {
+                var isMatch =  pointOfInterest.categories.indexOf(filterCategory) != -1 &&
+                pointOfInterest.name.toLowerCase().startsWith(filterText.toLowerCase());
+
+                var marker = pointOfInterest.marker;
+                if ( isMatch ) {
+                    showMarker(marker);
+                } else {
+                    hideMarker(marker);
+                }
+
+                return isMatch;
+            });
+
+        // Only items with categories.has(filterCategory) are a match
+        } else if (filterCategory != "all" && !filterText) {
+            return ko.utils.arrayFilter(pointsOfInterest(), function (pointOfInterest) {
+                var isMatch = pointOfInterest.categories.indexOf(filterCategory) != -1;
+
+                var marker = pointOfInterest.marker;
+                if ( isMatch ) {
+                    showMarker(marker);
+                } else {
+                    hideMarker(marker);
+                }
+                
+                return isMatch;
+            });
+        }
+    });
 
 }
 
-ko.applyBindings(new PointsOfInterestViewModel());
+function updatePointsOfInterest(place, marker) {
+    console.log("updatePointsOfInterest");
+
+    var placeId = place.place_id;
+
+    var result = placeIds.indexOf(placeId);
+    if (result === -1) {
+
+        placeIds.push(placeId);
+
+        var newPointOfInterest = new PointOfInterest(
+            name = place.name,
+            address = place.formatted_address,
+            coords = new Coords(latitude = place.geometry.location.lat(), longitude = place.geometry.location.lng()),
+            categories = place.types,
+            marker = marker
+        );
+
+        pointsOfInterest.push(newPointOfInterest);
+        updateAvailableCategories(newPointOfInterest.categories);
+
+    }
+}
+
+
+function updateAvailableCategories(categories) {
+    console.log("addAvailableCategories");
+
+    for (i = 0; i < categories.length; i++) {
+        var category = categories[i];
+        if (availableCategories.indexOf(category) === -1) {
+            availableCategories.push(category);
+        }
+    }
+}
+
+function run() {
+    ko.applyBindings(new PointsOfInterestViewModel());
+}

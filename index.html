@@ -6,12 +6,16 @@
   <style>
     /* Always set the map height explicitly to define the size of the div
      * element that contains the map. */
+
     #beverleyMap {
-      height: 50%;
-      width: 50%;
+      height: 75%;
+      width: 75%;
     }
+
     /* Optional: Makes the sample page fill the window. */
-    html, body {
+
+    html,
+    body {
       height: 100%;
       margin: 0;
       padding: 0;
@@ -22,10 +26,18 @@
 <body>
   <h2>My Favourite Points-Of-Interest</h2>
 
-  <label for="name">Name:</label>
-  <input id="name" data-bind="textInput: query"/>
-  <select data-bind="options: availableCategories, value: selectedCategory"></select>
-  <button data-bind="click: addPointOfInterest">Add Point-Of-Interest</button>
+  <p>
+    <label for="query">Name:</label>
+    <input id="query" data-bind="textInput: queryText" />
+    <select data-bind="options: availableCategories, value: queryCategory"></select>
+    <button data-bind="click: addPointsOfInterest">Add Point-Of-Interest</button>
+  </p>
+
+  <p>
+    <label for="filter">Filter:</label>
+    <input id="filter" data-bind="value: filterText, valueUpdate: 'afterkeydown'" />
+    <select data-bind="options: availableCategories, value: filterCategory"></select>
+  </p>
 
   <table>
     <thead>
@@ -47,12 +59,14 @@
         </th>
       </tr>
     </thead>
-    <tbody data-bind="foreach: pointsOfInterest">
-      <tr>
-        <td><input data-bind="value: name" /></td>
+    <tbody data-bind="foreach: filteredPointsOfInterest">
+      <tr data-bind="click: $root.changeMarker">
+        <td>
+          <input data-bind="value: name" />
+        </td>
         <td data-bind="text: address"></td>
-        <td data-bind="text: coords().latitude"></td>
-        <td data-bind="text: coords().longitude"></td>
+        <td data-bind="text: coords.latitude"></td>
+        <td data-bind="text: coords.longitude"></td>
         <td data-bind="foreach: categories">
           <li data-bind="text: $data"></li>
         </td>
@@ -62,10 +76,11 @@
 
   <div id="beverleyMap">Map appears here</div>
 
-  <script defer async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1DP9mEFFDEeEOvTT2BxmizqgpN9a1R68&callback=initialiseBeverleyMap&libraries=places"></script>
+  <script defer async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1DP9mEFFDEeEOvTT2BxmizqgpN9a1R68&callback=run&libraries=places"></script>
   <script type="text/javascript" src='js/lib/knockout.js'></script>
   <script type="text/javascript" src='js/lib/axios.js'></script>
   <script type="text/javascript" src="js/lib/jquery.min.js"></script>
+  <script type="text/javascript" src='js/utils/data.js'></script>
   <script type="text/javascript" src='js/utils/places.js'></script>
   <script type="text/javascript" src='js/main.js'></script>
 </body>
