@@ -2,12 +2,13 @@ var FLICKR_URL_TEMP = 'http://api.flickr.com/services/feeds/photos_public.gne?ta
 var FLICKR_TAGS_DEFAULT = "beverley,uk";
 
 function loadFlickrPhotos(tags) {
-    
+
     var normalizedTags;
-    if ( tags ) {
+    if (tags) {
         normalizedTags = tags + "," + FLICKR_TAGS_DEFAULT;
     } else {
         normalizedTags = FLICKR_TAGS_DEFAULT;
+        tags = FLICKR_TAGS_DEFAULT;
     }
 
     var tagsFlickrUrl = FLICKR_URL_TEMP.replace("%TAGS%", normalizedTags);
@@ -16,15 +17,13 @@ function loadFlickrPhotos(tags) {
         url: tagsFlickrUrl,
         dataType: 'jsonp',
         jsonp: 'jsoncallback',
-        success: function(data) {
-            
-            if ( data.items.length == 0 ) {
+        success: function (data) {
+
+            if (data.items.length === 0) {
                 $("#images").hide();
-                $("#tags").html("Oooops! There are no photos of " + tags + " in Flickr" );
-            }
-            else {
+                $("#tags").html("Oooops! There are no photos of " + tags + " in Flickr");
+            } else {
                 $("#images").hide().html(data).fadeIn('fast');
-                $("#tags").html("Oooops! There  aren't any Flickr photos for " + tags );
             }
 
             $.each(data.items, function (i, item) {
@@ -34,10 +33,10 @@ function loadFlickrPhotos(tags) {
             });
 
         },
-        error: function() {
-            
+        error: function () {
+
             $("#images").hide();
-            $("#tags").html("<p>Oooops! There  aren't any Flickr photos for " + tags );
+            $("#tags").html("<p>Oooops! There  aren't any Flickr photos for " + tags);
 
         }
     });

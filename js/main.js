@@ -41,8 +41,8 @@ function PointsOfInterestViewModel() {
 
     }
 
-    self.onClickPointOfInterest  = function (pointOfInterest) {
-        changeMarkerIcon( pointOfInterest );
+    self.onClickPointOfInterest = function (pointOfInterest) {
+        changeMarkerIcon(pointOfInterest);
         loadFlickrPhotos(pointOfInterest.name);
         loadWikipediaExtracts(pointOfInterest.name)
     }
@@ -52,10 +52,10 @@ function PointsOfInterestViewModel() {
         var filterText = self.filterText();
 
         // Everything is a match
-        if (filterCategory === "all" && !filterText) { 
+        if (filterCategory === "all" && !filterText) {
 
-            ko.utils.arrayForEach(pointsOfInterest(), function(pointOfInterest) {
-               
+            ko.utils.arrayForEach(pointsOfInterest(), function (pointOfInterest) {
+
                 var marker = pointOfInterest.marker;
                 showMarker(marker);
 
@@ -63,13 +63,13 @@ function PointsOfInterestViewModel() {
 
             return pointsOfInterest();
 
-        // Only items with name filterText are a match
-        } else if (filterCategory === "all" && filterText) { 
+            // Only items with name filterText are a match
+        } else if (filterCategory === "all" && filterText) {
             return ko.utils.arrayFilter(pointsOfInterest(), function (pointOfInterest) {
                 var isMatch = pointOfInterest.name.toLowerCase().startsWith(filterText.toLowerCase());
 
                 var marker = pointOfInterest.marker;
-                if ( isMatch ) {
+                if (isMatch) {
                     showMarker(marker);
                 } else {
                     hideMarker(marker);
@@ -78,14 +78,14 @@ function PointsOfInterestViewModel() {
                 return isMatch;
             });
 
-        // Only items with categories.has(filterCategory) and name filterText are a match
+            // Only items with categories.has(filterCategory) and name filterText are a match
         } else if (filterCategory != "all" && filterText) {
             return ko.utils.arrayFilter(pointsOfInterest(), function (pointOfInterest) {
-                var isMatch =  pointOfInterest.categories.indexOf(filterCategory) != -1 &&
-                pointOfInterest.name.toLowerCase().startsWith(filterText.toLowerCase());
+                var isMatch = pointOfInterest.categories.indexOf(filterCategory) != -1 &&
+                    pointOfInterest.name.toLowerCase().startsWith(filterText.toLowerCase());
 
                 var marker = pointOfInterest.marker;
-                if ( isMatch ) {
+                if (isMatch) {
                     showMarker(marker);
                 } else {
                     hideMarker(marker);
@@ -94,18 +94,18 @@ function PointsOfInterestViewModel() {
                 return isMatch;
             });
 
-        // Only items with categories.has(filterCategory) are a match
+            // Only items with categories.has(filterCategory) are a match
         } else if (filterCategory != "all" && !filterText) {
             return ko.utils.arrayFilter(pointsOfInterest(), function (pointOfInterest) {
                 var isMatch = pointOfInterest.categories.indexOf(filterCategory) != -1;
 
                 var marker = pointOfInterest.marker;
-                if ( isMatch ) {
+                if (isMatch) {
                     showMarker(marker);
                 } else {
                     hideMarker(marker);
                 }
-                
+
                 return isMatch;
             });
         }
@@ -128,7 +128,8 @@ function updatePointsOfInterest(place, marker) {
             address = place.formatted_address,
             coords = new Coords(latitude = place.geometry.location.lat(), longitude = place.geometry.location.lng()),
             categories = place.types,
-            marker = marker
+            marker = marker,
+            place = place
         );
 
         pointsOfInterest.push(newPointOfInterest);
@@ -153,6 +154,6 @@ function run() {
     ko.applyBindings(new PointsOfInterestViewModel());
 
     loadFlickrPhotos();
-    loadWikipediaArticles();
-    
+    loadWikipediaExtracts();
+
 }

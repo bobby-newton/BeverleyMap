@@ -6,7 +6,7 @@ function Coords(latitude, longitude) {
 }
 
 // A class that represents an entry in the point of interests table
-function PointOfInterest(name, address, coords, categories, marker) {
+function PointOfInterest(name, address, coords, categories, marker, place) {
     var self = this;
     self.name = name;
     self.address = address;
@@ -14,4 +14,5 @@ function PointOfInterest(name, address, coords, categories, marker) {
     self.categories = categories; // e.g. ["category1","category2",..,"categoryN"]
     self.marker = marker; // A google map marker
     self.beachFlag = "false"; // A google map marker
+    self.place = place; // A google place
 }

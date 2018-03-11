@@ -123,7 +123,7 @@ function createMarker(placeLocation, image, name) {
     google.maps.event.addListener(marker, 'click', function () {
         infowindow.setContent(name);
         infowindow.open(beverleyMap, marker);
-        
+
         if (marker.getAnimation() !== null) {
             marker.setAnimation(null);
         } else {
