@@ -18,15 +18,16 @@ function loadWikipediaExtracts(title) {
         success: function (data) {
 
             $("#extracts").html("");
+            $("#extracts-header").html("Wikipedia Extract");
 
             for (var key in data.query.pages) {
 
                 if (key != "-1") {
-                    $("#extracts").append("<p><strong>" + data.query.pages[key].title + "</strong></p>");
+                    $("#extracts-header").html("Wikipedia Extract :: " + title );
                     $("#extracts").append("<p>" + data.query.pages[key].extract + "</p>");
-
                 } else {
-                    $("#extracts").append("<p>Oooops! There  aren't any Wikipedia extracts for " + title + "</p>");
+                    $("#extracts-header").html("Wikipedia Extract :: " + title );
+                    $("#extracts").html("Oooops! There  aren't any Wikipedia extracts for this point-of-interest.");
                 }
 
             }

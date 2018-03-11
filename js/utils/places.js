@@ -85,7 +85,7 @@ function changeMarkerIcon(pointOfInterest) {
         pointOfInterest.beachFlag = "true";
     }
 
-    infowindow.open(beverleyMap, pointOfInterest.marker);
+    makeWindow( pointOfInterest.place, pointOfInterest.marker );
 
 }
 
@@ -110,43 +110,7 @@ function createMarker(place, image) {
 
     google.maps.event.addListener(marker, 'click', function () {
 
-        var name = place.name;
-        var phoneNumber = place.international_phone_number;
-        var website = place.website;
-        var openingHours = place.opening_hours;
-        var rating = place.rating;
-        var url = place.url;
-
-        console.log(place.opening_hours);
-
-        var infoWindowContent = "<p><strong>Name: </strong>" + name + "</p>";
-        if (phoneNumber) {
-            infoWindowContent += "<p><strong>Phone: </strong>" + phoneNumber + "</p>";
-        }
-        if (rating) {
-            infoWindowContent += "<p><strong>Rating: </strong>" + rating + "</p>";
-        }
-        if (openingHours) {
-            if (openingHours.open_now) {
-                infoWindowContent += "<p><strong>Open Now!</strong></p>";
-            } else {
-                infoWindowContent += "<p><strong>Closed!</strong></p>";
-            }
-        }
-        if (website) {
-            infoWindowContent += "<p><a href=\"" + website + "\">Website</a>";
-        }
-        if (url) {
-            if (website) {
-                infoWindowContent += " | ";
-            } else {
-                infoWindowContent += "<p>";
-            }
-            infoWindowContent += "<a href=\"" + url + "\">See on Google Maps</a></p>";
-        }
-
-        infowindow.setContent(infoWindowContent);
-        infowindow.open(beverleyMap, marker);
+        makeWindow ( place, marker );
 
         if (marker.getAnimation() !== null) {
             marker.setAnimation(null);
@@ -156,4 +120,42 @@ function createMarker(place, image) {
     });
 
     return marker;
+}
+
+function makeWindow ( place, marker ) {
+    var name = place.name;
+    var phoneNumber = place.international_phone_number;
+    var website = place.website;
+    var openingHours = place.opening_hours;
+    var rating = place.rating;
+    var url = place.url;
+
+    var infoWindowContent = "<p><strong>Name: </strong>" + name + "</p>";
+    if (phoneNumber) {
+        infoWindowContent += "<p><strong>Phone: </strong>" + phoneNumber + "</p>";
+    }
+    if (rating) {
+        infoWindowContent += "<p><strong>Rating: </strong>" + rating + "</p>";
+    }
+    if (openingHours) {
+        if (openingHours.open_now) {
+            infoWindowContent += "<p><strong>Open Now!</strong></p>";
+        } else {
+            infoWindowContent += "<p><strong>Closed!</strong></p>";
+        }
+    }
+    if (website) {
+        infoWindowContent += "<p><a href=\"" + website + "\">Website</a>";
+    }
+    if (url) {
+        if (website) {
+            infoWindowContent += " | ";
+        } else {
+            infoWindowContent += "<p>";
+        }
+        infoWindowContent += "<a href=\"" + url + "\">See on Google Maps</a></p>";
+    }
+
+    infowindow.setContent(infoWindowContent);
+    infowindow.open(beverleyMap, marker);
 }
