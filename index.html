@@ -60,7 +60,7 @@
       </tr>
     </thead>
     <tbody data-bind="foreach: filteredPointsOfInterest">
-      <tr data-bind="click: $root.changeMarker">
+      <tr data-bind="click: $root.onClickPointOfInterest">
         <td>
           <input data-bind="value: name" />
         </td>
@@ -74,15 +74,31 @@
     </tbody>
   </table>
 
+
+  <p>
+    <h2>Wikipedia Extracts</h2>
+  </p>
+  <div id="extracts"></div>
+
+  <p>
+    <h2>Flickr Photos</h2>
+  </p>
+  <div>
+    <p id="tags"></p>
+    <div id="images"></div>
+  </div>
+
   <div id="beverleyMap">Map appears here</div>
 
   <script defer async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1DP9mEFFDEeEOvTT2BxmizqgpN9a1R68&callback=run&libraries=places"></script>
-  <script type="text/javascript" src='js/lib/knockout.js'></script>
-  <script type="text/javascript" src='js/lib/axios.js'></script>
+  <script type="text/javascript" src="js/lib/knockout.js"></script>
+  <script type="text/javascript" src="js/lib/axios.js"></script>
   <script type="text/javascript" src="js/lib/jquery.min.js"></script>
-  <script type="text/javascript" src='js/utils/data.js'></script>
-  <script type="text/javascript" src='js/utils/places.js'></script>
-  <script type="text/javascript" src='js/main.js'></script>
+  <script type="text/javascript" src="js/utils/data.js"></script>
+  <script type="text/javascript" src="js/utils/wikipedia.js"></script>
+  <script type="text/javascript" src="js/utils/places.js"></script>
+  <script type="text/javascript" src="js/utils/flickr.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
 </body>
 
 </html>

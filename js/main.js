@@ -41,8 +41,10 @@ function PointsOfInterestViewModel() {
 
     }
 
-    self.changeMarker  = function (pointOfInterest) {
+    self.onClickPointOfInterest  = function (pointOfInterest) {
         changeMarkerIcon( pointOfInterest );
+        loadFlickrPhotos(pointOfInterest.name);
+        loadWikipediaExtracts(pointOfInterest.name)
     }
 
     self.filteredPointsOfInterest = ko.computed(function () {
@@ -112,7 +114,7 @@ function PointsOfInterestViewModel() {
 }
 
 function updatePointsOfInterest(place, marker) {
-    console.log("updatePointsOfInterest");
+    // console.log("updatePointsOfInterest");
 
     var placeId = place.place_id;
 
@@ -137,7 +139,7 @@ function updatePointsOfInterest(place, marker) {
 
 
 function updateAvailableCategories(categories) {
-    console.log("addAvailableCategories");
+    // console.log("addAvailableCategories");
 
     for (i = 0; i < categories.length; i++) {
         var category = categories[i];
@@ -149,4 +151,8 @@ function updateAvailableCategories(categories) {
 
 function run() {
     ko.applyBindings(new PointsOfInterestViewModel());
+
+    loadFlickrPhotos();
+    loadWikipediaArticles();
+    
 }
