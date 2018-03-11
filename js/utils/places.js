@@ -8,6 +8,7 @@ var beverleyLongitude = -0.4668126;
 var beachflagIcon = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
 
 function searchPointsOfInterest(query, types) {
+    // console.log("searchPointsOfInterest");
 
     var poiQuery = query + "+beverley";
     var poiTypes = types;
@@ -61,13 +62,27 @@ function initialiseBeverleyMap() {
 }
 
 function textSearchCallback(results, status) {
+    // console.log("searchPointsOfInterest");
 
     if (status == google.maps.places.PlacesServiceStatus.OK) {
+        // console.log("OK");
+
+        // console.log(results);
+        // console.log(status);
+
         for (var i = 0; i < results.length; i++) {
             var place = results[i];
-            var marker = (place, null);
+            var marker = createMarker(place, null);
             updatePointsOfInterest(place, marker);
         }
+    } else if (status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
+        // console.log("ZERO_RESULTS");
+
+        alert("We didn't find any matchs for your search!");
+    } else {
+        alert("Oppps! Something went wrong. You may try check your connection and reload the page to see if it works!");
+       
+        // console.log("ERROR");
     }
 }
 
@@ -85,7 +100,7 @@ function changeMarkerIcon(pointOfInterest) {
         pointOfInterest.beachFlag = "true";
     }
 
-    makeWindow( pointOfInterest.place, pointOfInterest.marker );
+    makeWindow(pointOfInterest.place, pointOfInterest.marker);
 
 }
 
@@ -95,7 +110,8 @@ function detailsCallback(place, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
         var marker = createMarker(place, null);
         updatePointsOfInterest(place, marker);
-    }
+    } 
+    // Ignore any errors as this one is only run on loading the default locations
 }
 
 function createMarker(place, image) {
@@ -110,7 +126,7 @@ function createMarker(place, image) {
 
     google.maps.event.addListener(marker, 'click', function () {
 
-        makeWindow ( place, marker );
+        makeWindow(place, marker);
 
         if (marker.getAnimation() !== null) {
             marker.setAnimation(null);
@@ -122,7 +138,7 @@ function createMarker(place, image) {
     return marker;
 }
 
-function makeWindow ( place, marker ) {
+function makeWindow(place, marker) {
     var name = place.name;
     var phoneNumber = place.international_phone_number;
     var website = place.website;

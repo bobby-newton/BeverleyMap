@@ -12,7 +12,8 @@ function PointsOfInterestViewModel() {
         "ChIJ_9-UdyPHeEgRMWShop9pv9M", // Beverley Westwood
         "ChIJ-2YaUnvHeEgRcXhA4EloCYA", // Hayride
         "ChIJAU7om1zHeEgRVK1GIecUslE", // Anytime Fitness Beverley
-        "ChIJT3SJd1vHeEgRWYZgSVakSO4" // Flemingate
+        "ChIJT3SJd1vHeEgRWYZgSVakSO4", // Flemingate
+        "ChIJWcWD2C-4eEgRe_wVTdvy7Kc" // Beverley
     ];
 
     self.queryText = ko.observable();
@@ -29,6 +30,8 @@ function PointsOfInterestViewModel() {
 
     // Operations
     self.addPointsOfInterest = function () {
+        console.log("addPointsOfInterest");
+
         var query = self.queryText().replace(' ', '+');
         var type = self.queryCategory();
 
@@ -135,6 +138,8 @@ function updatePointsOfInterest(place, marker) {
         pointsOfInterest.push(newPointOfInterest);
         updateAvailableCategories(newPointOfInterest.categories);
 
+    } else {
+        alert("The point of interest you are searching is already on the list!");
     }
 }
 
