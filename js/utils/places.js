@@ -78,14 +78,13 @@ function changeMarkerIcon(pointOfInterest) {
     var place = pointOfInterest.place;
 
     if (pointOfInterest.beachFlag === "true") {
-        pointOfInterest.marker = createMarker(place, null, name);
+        pointOfInterest.marker = createMarker(place, null);
         pointOfInterest.beachFlag = "false";
     } else {
-        pointOfInterest.marker = createMarker(place, beachflagIcon, name);
+        pointOfInterest.marker = createMarker(place, beachflagIcon);
         pointOfInterest.beachFlag = "true";
     }
 
-    infowindow.setContent(name);
     infowindow.open(beverleyMap, pointOfInterest.marker);
 
 }
@@ -94,12 +93,12 @@ function changeMarkerIcon(pointOfInterest) {
 function detailsCallback(place, status) {
 
     if (status == google.maps.places.PlacesServiceStatus.OK) {
-        var marker = createMarker(place, null, name);
+        var marker = createMarker(place, null);
         updatePointsOfInterest(place, marker);
     }
 }
 
-function createMarker(place, image, name) {
+function createMarker(place, image) {
 
     var placeLocation = place.geometry.location;
 
@@ -110,7 +109,43 @@ function createMarker(place, image, name) {
     });
 
     google.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent(name);
+
+        var name = place.name;
+        var phoneNumber = place.international_phone_number;
+        var website = place.website;
+        var openingHours = place.opening_hours;
+        var rating = place.rating;
+        var url = place.url;
+
+        console.log(place.opening_hours);
+
+        var infoWindowContent = "<p><strong>Name: </strong>" + name + "</p>";
+        if (phoneNumber) {
+            infoWindowContent += "<p><strong>Phone: </strong>" + phoneNumber + "</p>";
+        }
+        if (rating) {
+            infoWindowContent += "<p><strong>Rating: </strong>" + rating + "</p>";
+        }
+        if (openingHours) {
+            if (openingHours.open_now) {
+                infoWindowContent += "<p><strong>Open Now!</strong></p>";
+            } else {
+                infoWindowContent += "<p><strong>Closed!</strong></p>";
+            }
+        }
+        if (website) {
+            infoWindowContent += "<p><a href=\"" + website + "\">Website</a>";
+        }
+        if (url) {
+            if (website) {
+                infoWindowContent += " | ";
+            } else {
+                infoWindowContent += "<p>";
+            }
+            infoWindowContent += "<a href=\"" + url + "\">See on Google Maps</a></p>";
+        }
+
+        infowindow.setContent(infoWindowContent);
         infowindow.open(beverleyMap, marker);
 
         if (marker.getAnimation() !== null) {

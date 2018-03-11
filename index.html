@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="bg-red-darkest antialiased font-secondary">
 
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Beverley Points-Of-Interest - Bobby Newton</title>
   <link rel="stylesheet" href="css/lib/tailwind.css">
   <style>
     /* Always set the map height explicitly to define the size of the div
-     * element that contains the map. */
+       * element that contains the map. */
 
     #beverleyMap {
-      height: 75%;
-      width: 75%;
+      height: 100px;
+      width: 100px;
+      position: absolute;
     }
 
     /* Optional: Makes the sample page fill the window. */
@@ -23,55 +28,86 @@
   </style>
 </head>
 
-<body>
-  <h2>My Favourite Points-Of-Interest</h2>
+<body class="font-secondary">
 
-  <p>
-    <label for="query">Name:</label>
-    <input id="query" data-bind="textInput: queryText" />
-    <select data-bind="options: availableCategories, value: queryCategory"></select>
-    <button data-bind="click: addPointsOfInterest">Add Point-Of-Interest</button>
-  </p>
 
-  <p>
-    <label for="filter">Filter:</label>
-    <input id="filter" data-bind="value: filterText, valueUpdate: 'afterkeydown'" />
-    <select data-bind="options: availableCategories, value: filterCategory"></select>
-  </p>
+  <div class="flex items-center px-4 py-2 m-2 bg-red-darkest">
+    <h1 class="page-title text-white text-xl font-primary font-normal ml-4">My Favourite Points-Of-Interest</h1>
+    <div class="ml-auto">
+      <ul class="flex list-reset">
+        <li class="flex relative">
+          <a href="#" title="Developed By Bobby Newton" class="text-white hover:text-white-dark  no-underline transition no-underline border-r border-red-darkest pr-2 mr-2"
+            id="" target="" rel="noopener">Developed By Bobby Newton</a>
+        </li>
+      </ul>
+    </div>
+  </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>
-          <strong>Name</strong>
-        </th>
-        <th>
-          <strong>Address</strong>
-        </th>
-        <th>
-          <strong>Latitude</strong>
-        </th>
-        <th>
-          <strong>Longitude</strong>
-        </th>
-        <th>
-          <strong>Categories</strong>
-        </th>
-      </tr>
-    </thead>
-    <tbody data-bind="foreach: filteredPointsOfInterest">
-      <tr data-bind="click: $root.onClickPointOfInterest">
-        <td data-bind="text: name" /></td>
-        <td data-bind="text: address"></td>
-        <td data-bind="text: coords.latitude"></td>
-        <td data-bind="text: coords.longitude"></td>
-        <td data-bind="foreach: categories">
-          <li data-bind="text: $data"></li>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="bg-red-light h-1 shadow"></div>
+  <div class="bg-red-darkest h-2 shadow"></div>
 
+  <div class="flex flex-row bg-grey-lighter">
+    <div class="text-grey-darker text-center bg-grey-light px-4 py-2 m-2"></div>
+    <div class="text-grey-darker text-center bg-grey-light px-4 py-2 m-2">2</div>
+  </div>
+
+  
+
+  <div class="flex flex-col bg-grey-lighter w-3/5">
+    <div class="text-grey-darker text-center bg-grey-light px-4 py-2 m-2">
+      <div class="flex flex-row items-center bg-red-lighter">
+        <div class="text-grey-darker text-center bg-red-light px-4 py-2 m-2">
+          <p>
+            <label for="filter">Filter:</label>
+            <input id="filter" data-bind="value: filterText, valueUpdate: 'afterkeydown'" />
+            <select data-bind="options: availableCategories, value: filterCategory"></select>
+          </p>
+        </div>
+        <div class="text-grey-darker text-center bg-red-light px-4 py-2 m-2">
+          <p>
+            <label for="query">Name:</label>
+            <input id="query" data-bind="textInput: queryText" />
+            <select data-bind="options: availableCategories, value: queryCategory"></select>
+            <button data-bind="click: addPointsOfInterest">Add Point-Of-Interest</button>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="text-grey-darker text-center bg-grey-light px-4 py-2 m-2">
+      <table>
+        <thead>
+          <tr>
+            <th>
+              <strong>Name</strong>
+            </th>
+            <th>
+              <strong>Address</strong>
+            </th>
+            <th>
+              <strong>Latitude</strong>
+            </th>
+            <th>
+              <strong>Longitude</strong>
+            </th>
+            <th>
+              <strong>Categories</strong>
+            </th>
+          </tr>
+        </thead>
+        <tbody data-bind="foreach: filteredPointsOfInterest">
+          <tr data-bind="click: $root.onClickPointOfInterest">
+            <td data-bind="text: name" /></td>
+            <td data-bind="text: address"></td>
+            <td data-bind="text: coords.latitude"></td>
+            <td data-bind="text: coords.longitude"></td>
+            <td data-bind="foreach: categories">
+              <li data-bind="text: $data"></li>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
   <p>
     <h2>Wikipedia Extracts</h2>
@@ -85,9 +121,6 @@
     <p id="tags"></p>
     <div id="images"></div>
   </div>
-
-  <div id="beverleyMap">Map appears here</div>
-
 
 </body>
 
