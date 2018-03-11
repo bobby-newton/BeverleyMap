@@ -61,9 +61,7 @@
     </thead>
     <tbody data-bind="foreach: filteredPointsOfInterest">
       <tr data-bind="click: $root.onClickPointOfInterest">
-        <td>
-          <input data-bind="value: name" />
-        </td>
+        <td data-bind="text: name" /></td>
         <td data-bind="text: address"></td>
         <td data-bind="text: coords.latitude"></td>
         <td data-bind="text: coords.longitude"></td>

@@ -19,8 +19,6 @@ function loadWikipediaExtracts(title) {
 
             $("#extracts").html("");
 
-            console.log(data.query.pages);
-
             for (var key in data.query.pages) {
 
                 if (key != "-1") {

@@ -8,7 +8,6 @@ var beverleyLongitude = -0.4668126;
 var beachflagIcon = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
 
 function searchPointsOfInterest(query, types) {
-    console.log("searchPointsOfInterest");
 
     var poiQuery = query + "+beverley";
     var poiTypes = types;
@@ -32,7 +31,6 @@ function hideMarker(marker) {
 }
 
 function loadMarkers(defaultPlacesIds) {
-    console.log("loadMarkers");
 
     for (i = 0; i < defaultPlacesIds.length; i++) {
         var defaultPlaceId = defaultPlacesIds[i];
@@ -50,7 +48,6 @@ function loadMarkers(defaultPlacesIds) {
 
 // Function that initialises an empty map with center on Beverley, UK.
 function initialiseBeverleyMap() {
-    console.log("initialiseBeverleyMap");
 
     var beverleyLocation = new google.maps.LatLng(beverleyLatitude, beverleyLongitude);
 
@@ -64,13 +61,11 @@ function initialiseBeverleyMap() {
 }
 
 function textSearchCallback(results, status) {
-    console.log("textSearchCallback");
 
     if (status == google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
             var place = results[i];
-            var placeLocation = place.geometry.location;
-            var marker = createMarker(placeLocation, null);
+            var marker = (place, null);
             updatePointsOfInterest(place, marker);
         }
     }
@@ -79,19 +74,14 @@ function textSearchCallback(results, status) {
 function changeMarkerIcon(pointOfInterest) {
     hideMarker(pointOfInterest.marker);
 
-    var latitude = pointOfInterest.coords.latitude;
-    var longitude = pointOfInterest.coords.longitude;
-    var position = {
-        lat: latitude,
-        lng: longitude
-    };
     var name = pointOfInterest.name;
+    var place = pointOfInterest.place;
 
     if (pointOfInterest.beachFlag === "true") {
-        pointOfInterest.marker = createMarker(position, null, name);
+        pointOfInterest.marker = createMarker(place, null, name);
         pointOfInterest.beachFlag = "false";
     } else {
-        pointOfInterest.marker = createMarker(position, beachflagIcon, name);
+        pointOfInterest.marker = createMarker(place, beachflagIcon, name);
         pointOfInterest.beachFlag = "true";
     }
 
@@ -102,17 +92,16 @@ function changeMarkerIcon(pointOfInterest) {
 
 
 function detailsCallback(place, status) {
-    console.log("detailsCallback");
 
     if (status == google.maps.places.PlacesServiceStatus.OK) {
-        var placeLocation = place.geometry.location;
-        var marker = createMarker(placeLocation, null, name);
+        var marker = createMarker(place, null, name);
         updatePointsOfInterest(place, marker);
     }
 }
 
-function createMarker(placeLocation, image, name) {
-    console.log("createMarker");
+function createMarker(place, image, name) {
+
+    var placeLocation = place.geometry.location;
 
     var marker = new google.maps.Marker({
         map: beverleyMap,

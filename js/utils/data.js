@@ -13,6 +13,6 @@ function PointOfInterest(name, address, coords, categories, marker, place) {
     self.coords = coords;
     self.categories = categories; // e.g. ["category1","category2",..,"categoryN"]
     self.marker = marker; // A google map marker
-    self.beachFlag = "false"; // A google map marker
+    self.beachFlag = "false";
     self.place = place; // A google place
 }
