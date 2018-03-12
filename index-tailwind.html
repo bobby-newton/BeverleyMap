@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="css/lib/tailwind.css">
 </head>
 
-<body class="font-secondary  class="bg-red-darkest"">
+<body class="font-secondary  class=" bg-red-darkest "">
 
   <div class="flex items-center px-4 py-2 m-2 bg-red-darkest">
     <h1 class="page-title text-white text-xl font-primary font-normal ml-4">My Favourite Points-Of-Interest</h1>
@@ -25,44 +25,47 @@
 
   <div class="bg-red-light h-1 shadow"></div>
   <div class="bg-red-darkest h-2 shadow"></div>
-
   <div class="bg-red-darkest">
     <div class="flex flex-row bg-grey-lighter">
       <div class="flex flex-col bg-grey-lighter w-3/5">
         <div class="text-grey-darker text-center bg-grey-light px-4 py-2 m-2">
           <div class="flex overflow-auto sm:flex-col md:flex-row lg:flex-row xl:flex-row items-center bg-red-lighter">
-            <div class="text-grey-darker text-center bg-red-light px-4 py-2 m-2">
-              <p>
+            <div class="flex sm:flex-col md:flex-row lg:flex-row xl:flex-row flex-wrap items-center text-grey-darker text-center bg-red-light m-2">
+              <div class="px-1 py-2">
                 <label for="filter">Filter:</label>
+              </div>
+              <div class="px-1 py-2">
                 <input id="filter" data-bind="value: filterText, valueUpdate: 'afterkeydown'" />
+              </div>
+              <div class="px-1 py-2">
                 <select data-bind="options: availableCategories, value: filterCategory"></select>
-              </p>
+              </div>
             </div>
-            <div class="flex flex-row flex-wrap items-center text-grey-darker text-center bg-red-light">
-                  <div class="px-1 py-2">
-                    <label for="query">Name:</label>
-                  </div>
-                  <div class="px-1 py-2">
-                    <input id="query" data-bind="textInput: queryText" />
-                  </div>
-                  <div class="px-1 py-2">
-                    <select data-bind="options: availableCategories, value: queryCategory"></select>
-                  </div>
-                  <div class="px-1 py-2">
-                    <button class="bg-blue hover:bg-red-dark text-white font-bold py-2 px-4 rounded" data-bind="click: addPointsOfInterest">Add Point-Of-Interest</button>
-                  </div>
+            <div class="flex sm:flex-col md:flex-row lg:flex-row xl:flex-row flex-wrap items-center text-grey-darker text-center bg-red-light m-2 pin-r">
+              <div class="px-1 py-2">
+                <label for="query">Name:</label>
+              </div>
+              <div class="px-1 py-2">
+                <input id="query" data-bind="textInput: queryText" />
+              </div>
+              <div class="px-1 py-2">
+                <select data-bind="options: availableCategories, value: queryCategory"></select>
+              </div>
+              <div class="px-1 py-2">
+                <button class="bg-blue hover:bg-red-dark text-white font-bold py-2 px-4 rounded" data-bind="click: addPointsOfInterest">Add Point-Of-Interest</button>
+              </div>
             </div>
           </div>
         </div>
         <div class="text-grey-darker text-left bg-grey-light px-4 py-2 m-2">
-            <div class="hidden" data-bind="foreach: filteredPointsOfInterest">
-                <div data-bind="click: $root.onClickPointOfInterest">
-                  <div class="py-1 pr-2 w-full sm:flex-grow sm:w-1/4 break-words" data-bind="text: name"></div>
-                  <div class="py-1 pr-2 w-full sm:flex-grow sm:w-1/4 break-words" data-bind="text: address"></div>
-                  <div class="py-1 pr-2 w-full sm:flex-grow sm:w-1/4 break-words" data-bind="text: coords.latitude"></div>
-                  <div class="py-1 pr-2 w-full sm:flex-grow sm:w-1/4 break-words" data-bind="text: coords.longitude"></div>
-                </div>
-              </div>
+          <div class="hidden" data-bind="foreach: filteredPointsOfInterest">
+            <div data-bind="click: $root.onClickPointOfInterest">
+              <div class="py-1 pr-2 w-full sm:flex-grow sm:w-1/4 break-words" data-bind="text: name"></div>
+              <div class="py-1 pr-2 w-full sm:flex-grow sm:w-1/4 break-words" data-bind="text: address"></div>
+              <div class="py-1 pr-2 w-full sm:flex-grow sm:w-1/4 break-words" data-bind="text: coords.latitude"></div>
+              <div class="py-1 pr-2 w-full sm:flex-grow sm:w-1/4 break-words" data-bind="text: coords.longitude"></div>
+            </div>
+          </div>
 
           <table>
             <thead>
@@ -78,7 +81,7 @@
                 </th>
                 <th>
                   <h3 class="font-primary font-semibold text-base text-grey-darker truncate">Longitude</h3>
-                </th>  
+                </th>
               </tr>
             </thead>
             <tbody data-bind="foreach: filteredPointsOfInterest">
@@ -93,7 +96,11 @@
         </div>
       </div>
       <div class="text-grey-darker text-center bg-grey-light px-4 py-2 m-2  w-2/5">
-        <div class="min-w-full min-h-full" id="beverleyMap"><p>Ooops!</p><p>Looks like the satellite is down!</p><p>Refresh or try later!</p></div>
+        <div class="min-w-full min-h-full" id="beverleyMap">
+          <p>Ooops!</p>
+          <p>Looks like the satellite is down!</p>
+          <p>Refresh or try later!</p>
+        </div>
       </div>
     </div>
 

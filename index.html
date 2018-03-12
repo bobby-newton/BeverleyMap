@@ -1,123 +1,95 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-red-darkest antialiased font-secondary">
+<html>
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Beverley Points-Of-Interest - Bobby Newton</title>
   <link rel="stylesheet" href="css/lib/tailwind.css">
+  <link rel="stylesheet" href="css/grid-principle-w3schools.css">
+  <style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+
+    #beverleyMap {
+      height: 75%;
+      width: 75%;
+    }
+
+    /* Optional: Makes the sample page fill the window. */
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
 </head>
 
-<body class="font-secondary  class=" bg-red-darkest "">
+<body>
+  <h2>My Favourite Points-Of-Interest</h2>
 
-  <div class="flex items-center px-4 py-2 m-2 bg-red-darkest">
-    <h1 class="page-title text-white text-xl font-primary font-normal ml-4">My Favourite Points-Of-Interest</h1>
-    <div class="ml-auto">
-      <ul class="flex list-reset">
-        <li class="flex relative">
-          <a href="#" title="Developed By Bobby Newton" class="text-white hover:text-white-dark no-underline transition no-underline border-r border-red-darkest pr-2 mr-2"
-            id="" target="" rel="noopener">Developed By Bobby Newton</a>
-        </li>
-      </ul>
-    </div>
+  <p>
+    <label for="query">Name:</label>
+    <input id="query" data-bind="textInput: queryText" />
+    <select data-bind="options: availableCategories, value: queryCategory"></select>
+    <button data-bind="click: addPointsOfInterest">Add Point-Of-Interest</button>
+  </p>
+
+  <p>
+    <label for="filter">Filter:</label>
+    <input id="filter" data-bind="value: filterText, valueUpdate: 'afterkeydown'" />
+    <select data-bind="options: availableCategories, value: filterCategory"></select>
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>
+          <strong>Name</strong>
+        </th>
+        <th>
+          <strong>Address</strong>
+        </th>
+        <th>
+          <strong>Latitude</strong>
+        </th>
+        <th>
+          <strong>Longitude</strong>
+        </th>
+        <th>
+          <strong>Categories</strong>
+        </th>
+      </tr>
+    </thead>
+    <tbody data-bind="foreach: filteredPointsOfInterest">
+      <tr data-bind="click: $root.onClickPointOfInterest">
+        <td data-bind="text: name" /></td>
+        <td data-bind="text: address"></td>
+        <td data-bind="text: coords.latitude"></td>
+        <td data-bind="text: coords.longitude"></td>
+        <td data-bind="foreach: categories">
+          <li data-bind="text: $data"></li>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <p>
+    <h2>Wikipedia Extracts</h2>
+  </p>
+  <div id="extracts"></div>
+
+  <p>
+    <h2>Flickr Photos</h2>
+  </p>
+  <div>
+    <p id="tags"></p>
+    <div id="images"></div>
   </div>
 
-  <div class="bg-red-light h-1 shadow"></div>
-  <div class="bg-red-darkest h-2 shadow"></div>
-  <div class="bg-red-darkest">
-    <div class="flex flex-row bg-grey-lighter">
-      <div class="flex flex-col bg-grey-lighter w-3/5">
-        <div class="text-grey-darker text-center bg-grey-light px-4 py-2 m-2">
-          <div class="flex overflow-auto sm:flex-col md:flex-row lg:flex-row xl:flex-row items-center bg-red-lighter">
-            <div class="flex sm:flex-col md:flex-row lg:flex-row xl:flex-row flex-wrap items-center text-grey-darker text-center bg-red-light ml-auto mr-auto m-2">
-              <div class="px-1 py-2">
-                <label for="filter">Filter:</label>
-              </div>
-              <div class="px-1 py-2">
-                <input id="filter" data-bind="value: filterText, valueUpdate: 'afterkeydown'" />
-              </div>
-              <div class="px-1 py-2">
-                <select data-bind="options: availableCategories, value: filterCategory"></select>
-              </div>
-            </div>
-            <div class="flex sm:flex-col md:flex-row lg:flex-row xl:flex-row flex-wrap items-center text-grey-darker text-center bg-red-light ml-auto mr-auto m-2">
-              <div class="px-1 py-2">
-                <label for="query">Name:</label>
-              </div>
-              <div class="px-1 py-2">
-                <input id="query" data-bind="textInput: queryText" />
-              </div>
-              <div class="px-1 py-2">
-                <select data-bind="options: availableCategories, value: queryCategory"></select>
-              </div>
-              <div class="px-1 py-2">
-                <button class="bg-blue hover:bg-red-dark text-white font-bold py-2 px-4 rounded" data-bind="click: addPointsOfInterest">Add Point-Of-Interest</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="text-grey-darker text-left bg-grey-light px-4 py-2 m-2">
-          <div class="hidden" data-bind="foreach: filteredPointsOfInterest">
-            <div data-bind="click: $root.onClickPointOfInterest">
-              <div class="py-1 pr-2 w-full sm:flex-grow sm:w-1/4 break-words" data-bind="text: name"></div>
-              <div class="py-1 pr-2 w-full sm:flex-grow sm:w-1/4 break-words" data-bind="text: address"></div>
-              <div class="py-1 pr-2 w-full sm:flex-grow sm:w-1/4 break-words" data-bind="text: coords.latitude"></div>
-              <div class="py-1 pr-2 w-full sm:flex-grow sm:w-1/4 break-words" data-bind="text: coords.longitude"></div>
-            </div>
-          </div>
+  <div id="beverleyMap">Map appears here</div>
 
-          <table>
-            <thead>
-              <tr>
-                <th>
-                  <h3 class="font-primary font-semibold text-base text-grey-darker truncate">Name</h3>
-                </th>
-                <th>
-                  <h3 class="font-primary font-semibold text-base text-grey-darker truncate">Address</h3>
-                </th>
-                <th>
-                  <h3 class="font-primary font-semibold text-base text-grey-darker truncate">Latitude</h3>
-                </th>
-                <th>
-                  <h3 class="font-primary font-semibold text-base text-grey-darker truncate">Longitude</h3>
-                </th>
-              </tr>
-            </thead>
-            <tbody data-bind="foreach: filteredPointsOfInterest">
-              <tr data-bind="click: $root.onClickPointOfInterest">
-                <td class="py-1 pr-2 w-full sm:flex-grow sm:w-1/4 break-words" data-bind="text: name" /></td>
-                <td class="py-1 pr-2 w-full sm:flex-grow sm:w-1/4 break-words" data-bind="text: address"></td>
-                <td class="py-1 pr-2 w-full sm:flex-grow sm:w-1/4 break-words" data-bind="text: coords.latitude"></td>
-                <td class="py-1 pr-2 w-full sm:flex-grow sm:w-1/4 break-words" data-bind="text: coords.longitude"></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="text-grey-darker text-center bg-grey-light px-4 py-2 m-2  w-2/5">
-        <div class="min-w-full min-h-full" id="beverleyMap">
-          <p>Ooops!</p>
-          <p>Looks like the satellite is down!</p>
-          <p>Refresh or try later!</p>
-        </div>
-      </div>
-    </div>
 
-    <div class="flex flex-col bg-grey-lighter">
-      <div class="text-grey-darker text-center bg-grey-light px-4 py-2 m-2">
-        <h3 id="extracts-header" class="font-primary font-semibold text-base text-grey-darker truncate">Wikipedia Extracts</h3>
-        <div id="extracts"></div>
-      </div>
-      <div class="text-grey-darker text-center bg-grey-light px-4 py-2 m-2">
-        <h3 id="flickr-header" class="font-primary font-semibold text-base text-grey-darker truncate">Flickr Photos</h3>
-        <div>
-          <p id="tags"></p>
-          <div class="flex flex-row overflow-x-scroll" id="images"></div>
-        </div>
-      </div>
-    </div>
-  </div>
 </body>
 
 <footer>
