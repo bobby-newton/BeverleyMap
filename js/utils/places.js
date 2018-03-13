@@ -139,7 +139,10 @@ function createMarker(place, image) {
 }
 
 function makeWindow(place, marker) {
+    console.log(place);
+
     var name = place.name;
+    var address = place.formatted_address;
     var phoneNumber = place.international_phone_number;
     var website = place.website;
     var openingHours = place.opening_hours;
@@ -147,6 +150,9 @@ function makeWindow(place, marker) {
     var url = place.url;
 
     var infoWindowContent = "<p><strong>Name: </strong>" + name + "</p>";
+    if (address) {
+        infoWindowContent += "<p><strong>Address: </strong>" + address + "</p>";
+    }
     if (phoneNumber) {
         infoWindowContent += "<p><strong>Phone: </strong>" + phoneNumber + "</p>";
     }
