@@ -31,26 +31,14 @@
     <div class="display-google-map col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" id="beverleyMap">Map appears here</div>
 
     <div class="list-points-of-interest col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
-      <table>
-        <thead>
-          <tr>
-            <th>
-              <strong>Name</strong>
-            </th>
-            <th>
-              <strong>Categories</strong>
-            </th>
-          </tr>
-        </thead>
-        <tbody data-bind="foreach: filteredPointsOfInterest">
-          <tr data-bind="click: $root.onClickPointOfInterest">
-            <td data-bind="text: name"></td>
-            <td data-bind="foreach: categories">
-              <li data-bind="text: $data"></li>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <ul data-bind="foreach: filteredPointsOfInterest">
+        <ul data-bind="click: $root.onClickPointOfInterest">
+          <li data-bind="text: name"></li>
+          <ul data-bind="foreach: categories">
+            <li data-bind="text: $data"></li>
+          </ul>
+        </ul>
+      </ul>
     </div>
 
     <div class="display-wikipedia-extract col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
