@@ -32,13 +32,22 @@
 
     <div class="list-points-of-interest col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
       <ul data-bind="foreach: filteredPointsOfInterest">
+        <li data-bind="click: $root.onClickPointOfInterest">
+          <p data-bind="text: name"><p>
+          <div data-bind="foreach: categories">
+            <p data-bind="text: $data"></p>
+          </div>
+        </li>
+      </ul>
+
+      <!-- <ul data-bind="foreach: filteredPointsOfInterest">
         <ul data-bind="click: $root.onClickPointOfInterest">
           <li data-bind="text: name"></li>
-          <ul data-bind="foreach: categories">
+          <div data-bind="foreach: categories">
             <li data-bind="text: $data"></li>
-          </ul>
+          </div>
         </ul>
-      </ul>
+      </ul> -->
     </div>
 
     <div class="display-wikipedia-extract col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
