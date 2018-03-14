@@ -3,9 +3,9 @@ Single-page web app that lists and displays a map of points of interest (aka loc
 
 ## Interface Design
 
-The user interface is totally responsive and adapts well to a great range of viewports ranging from extra small to large desktop devices.  All the required components are responsive and usable across the different device screen sizes . 
+The user interface is totally responsive and adapts well to a great range of viewports ranging from extra small to large desktop devices.  All the required components are responsive and usable across the different device screen sizes. 
 
-In order to achieve such responsiveness a range of view ports were sub-divided in a 12-column grid. The 12-column grid principle adopted in this project is explained by W3Schools in [Responsive Web Design](https://www.w3schools.com/css/css_rwd_intro.asp)
+In order to achieve such responsiveness a range of view ports were sub-divided in a 12-column grid. The 12-column grid principle adopted in this project is explained by W3Schools in [Responsive Web Design](https://www.w3schools.com/css/css_rwd_intro.asp).
 
 ## App Functionality
 
