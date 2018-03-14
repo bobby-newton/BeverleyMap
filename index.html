@@ -2,8 +2,10 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="css/lib/tailwind.css">
-  <link rel="stylesheet" href="css/grid-principle-w3schools.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/styles.css">
+  <title>Beverley Points-Of-Interest - Bobby Newton</title>
 </head>
 
 <body>
@@ -12,22 +14,22 @@
     <h2 class="bg-red-darkest header">My Favourite Points-Of-Interest In Beverley</h2>
   </div>
 
-  <div class="row">
+  <div class="row bg-red-light">
 
     <div class="add-points-of-interest col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6 bg-red-light {">
       <ul>
-        <label for="query">Name:</label>
-        <input id="query" data-bind="textInput: queryText" />
-        <select data-bind="options: availableCategories, value: queryCategory"></select>
-        <button data-bind="click: addPointsOfInterest">Add Point-Of-Interest</button>
+        <li><label for="query">New:</label></li>
+        <li><input id="query" data-bind="textInput: queryText" /></li>
+        <li><select data-bind="options: availableCategories, value: queryCategory"></select></li>
+        <button data-bind="click: addPointsOfInterest">Add</button>
       </ul>
     </div>
 
     <div class="filter-points-of-interest col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6 bg-red-light {">
       <ul>
-        <label for="filter">Filter:</label>
-        <input id="filter" data-bind="value: filterText, valueUpdate: 'afterkeydown'" />
-        <select data-bind="options: availableCategories, value: filterCategory"></select>
+        <li><label for="filter">Filter:</label></li>
+        <li><input id="filter" data-bind="value: filterText, valueUpdate: 'afterkeydown'" /></li>
+        <li><select data-bind="options: availableCategories, value: filterCategory"></select></li>
       </ul>
     </div>
 
@@ -52,6 +54,8 @@
       <ul id="images"></ul>
     </div>
   </div>
+
+
 </body>
 
 <footer>
@@ -60,7 +64,6 @@
 
   <script defer async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1DP9mEFFDEeEOvTT2BxmizqgpN9a1R68&callback=run&libraries=places"></script>
   <script type="text/javascript" src="js/lib/knockout.js"></script>
-  <script type="text/javascript" src="js/lib/axios.js"></script>
   <script type="text/javascript" src="js/lib/jquery.min.js"></script>
   <script type="text/javascript" src="js/utils/data.js"></script>
   <script type="text/javascript" src="js/utils/wikipedia.js"></script>
