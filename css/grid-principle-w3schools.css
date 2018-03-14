@@ -80,9 +80,12 @@ table {
 }
 
 .header {
-    background-color: #9933cc;
     color: #ffffff;
     padding: 15px;
+}
+
+.footer {
+    color: #ffffff;
 }
 
 .list-points-of-interest ul {
@@ -104,6 +107,22 @@ table {
 
 .list-points-of-interest li:hover {
     background-color: #0099cc;
+}
+
+.bg-red-darkest {
+    background-color: #3b0d0c;
+}
+  
+.bg-red-light {
+    background-color: #ef5753;
+}
+
+.bg-grey-darker {
+    background-color: #606f7b;
+}
+
+.bg-grey-dark {
+    background-color: #8795a1;
 }
 
 /* Extra small devices (phones, 600px and down) */

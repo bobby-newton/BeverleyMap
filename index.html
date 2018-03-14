@@ -7,11 +7,14 @@
 </head>
 
 <body>
-  <h2>My Favourite Points-Of-Interest</h2>
+
+  <div>
+  <h2 class="bg-red-darkest header">My Favourite Points-Of-Interest</h2>
+  </div>
 
   <div class="row">
 
-    <div class="add-points-of-interest col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+    <div class="add-points-of-interest col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6 bg-red-light {">
       <p>
         <label for="query">Name:</label>
         <input id="query" data-bind="textInput: queryText" />
@@ -20,7 +23,7 @@
       </p>
     </div>
 
-    <div class="filter-points-of-interest col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6">
+    <div class="filter-points-of-interest col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6 bg-red-light {">
       <p>
         <label for="filter">Filter:</label>
         <input id="filter" data-bind="value: filterText, valueUpdate: 'afterkeydown'" />
@@ -30,7 +33,7 @@
 
     <div class="display-google-map col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" id="beverleyMap">Map appears here</div>
 
-    <div class="list-points-of-interest col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+    <div class="list-points-of-interest col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12 bg-grey-darker">
       <ul data-bind="foreach: filteredPointsOfInterest">
         <li data-bind="click: $root.onClickPointOfInterest">
           <p data-bind="text: name"><p>
@@ -41,12 +44,12 @@
       </ul>
     </div>
 
-    <div class="display-wikipedia-extract col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+    <div class="display-wikipedia-extract col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12 bg-grey-dark">
       <h2>Wikipedia Extracts</h2>
       <div id="extracts"></div>
     </div>
 
-    <div class="list-flickr-photos col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12">
+    <div class="list-flickr-photos col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12 bg-grey-darker">
       <h2>Flickr Photos</h2>
       <p id="tags"></p>
       <div id="images"></div>
@@ -55,6 +58,9 @@
 </body>
 
 <footer>
+
+  <p class="bg-red-darkest footer ">Developed and powered by Bobby Newton</p>
+
   <script defer async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1DP9mEFFDEeEOvTT2BxmizqgpN9a1R68&callback=run&libraries=places"></script>
   <script type="text/javascript" src="js/lib/knockout.js"></script>
   <script type="text/javascript" src="js/lib/axios.js"></script>
@@ -64,6 +70,7 @@
   <script type="text/javascript" src="js/utils/places.js"></script>
   <script type="text/javascript" src="js/utils/flickr.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
+
 </footer>
 
 </html>
