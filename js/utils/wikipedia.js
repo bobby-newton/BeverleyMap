@@ -23,10 +23,10 @@ function loadWikipediaExtracts(title) {
             for (var key in data.query.pages) {
 
                 if (key != "-1") {
-                    $("#extracts-header").html("Wikipedia Extract :: " + title );
+                    $("#extracts-header").html("Wikipedia Extract :: " + title);
                     $("#extracts").append("<p>" + data.query.pages[key].extract + "</p>");
                 } else {
-                    $("#extracts-header").html("Wikipedia Extract :: " + title );
+                    $("#extracts-header").html("Wikipedia Extract :: " + title);
                     $("#extracts").html("Oooops! There  aren't any Wikipedia extracts for this point-of-interest.");
                 }
 

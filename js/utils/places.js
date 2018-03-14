@@ -81,7 +81,7 @@ function textSearchCallback(results, status) {
         alert("We didn't find any matchs for your search!");
     } else {
         alert("Oppps! Something went wrong. You may try check your connection and reload the page to see if it works!");
-       
+
         // console.log("ERROR");
     }
 }
@@ -110,7 +110,7 @@ function detailsCallback(place, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
         var marker = createMarker(place, null);
         updatePointsOfInterest(place, marker);
-    } 
+    }
     // Ignore any errors as this one is only run on loading the default locations
 }
 

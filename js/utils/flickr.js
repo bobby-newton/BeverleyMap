@@ -23,17 +23,17 @@ function loadFlickrPhotos(tags) {
 
             if (data.items.length === 0) {
                 $("#images").hide();
-                $("#flickr-header").html("Flickr Photos :: " + tags );
+                $("#flickr-header").html("Flickr Photos :: " + tags);
                 $("#tags").html("Oooops! There are no photos for this point-of-interest.");
             } else {
-                $("#flickr-header").html("Flickr Photos :: " + tags );
+                $("#flickr-header").html("Flickr Photos :: " + tags);
                 $("#images").hide().html(data).fadeIn('fast');
                 $("#tags").html("");
             }
 
             $.each(data.items, function (i, item) {
 
-                console.log(item); 
+                console.log(item);
                 $("<img/>").attr("src", item.media.m).attr("title", item.title).appendTo("#images");
 
             });
@@ -42,7 +42,7 @@ function loadFlickrPhotos(tags) {
         error: function () {
 
             $("#images").hide();
-            $("#tags").html("<p>Oooops! There  aren't any Flickr photos for " + tags);
+            $("#tags").html("<p>Oooops! We didn't find any Flickr photos for " + tags);
 
         }
     });

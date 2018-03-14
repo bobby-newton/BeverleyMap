@@ -2,18 +2,23 @@
 *  
 *  The CSS below is based upon the principles and guidelines taught at https://www.w3schools.com/css/css_rwd_intro.asp
 */
-html, body, footer {
+
+html,
+body,
+footer {
     font-family: "Lucida Sans", sans-serif;
     background-color: #3b0d0c;
 }
 
 h1 {
-    font-size: 36px; /* fallback: */ 
+    font-size: 36px;
+    /* fallback: */
     font-size: 5.9vw;
 }
 
 h2 {
-    font-size: 18px; /* fallback: */ 
+    font-size: 18px;
+    /* fallback: */
     font-size: 3.0vh;
 }
 
@@ -23,19 +28,21 @@ img {
 }
 
 p {
-    font-size: 12px; /* fallback: */ 
+    font-size: 12px;
+    /* fallback: */
     font-size: 2vmin;
 }
 
 table {
-    font-size: 12px; /* fallback: */ 
+    font-size: 12px;
+    /* fallback: */
     font-size: 2vmin;
 }
 
 .header {
     color: #ffffff;
     padding: 15px;
-    text-align: center; 
+    text-align: center;
     text-transform: uppercase;
 }
 
@@ -44,11 +51,13 @@ table {
 }
 
 /* Make sure every item includes the border and padding in the width and height. */
+
 * {
     box-sizing: border-box;
 }
 
 /*  Set all columns to float to the left with padding 15px */
+
 [class*="col-"] {
     float: left;
     padding: 15px;
@@ -56,6 +65,7 @@ table {
 }
 
 /* Clears the flow so that columns do not float to the left */
+
 .row::after {
     content: "";
     clear: both;
@@ -71,7 +81,7 @@ table {
 .filter-points-of-interest ul {
     list-style-type: none;
     margin: auto;
-    text-align: center; 
+    text-align: center;
     padding: 0;
 }
 
@@ -94,7 +104,7 @@ table {
 .add-points-of-interest ul {
     list-style-type: none;
     margin: auto;
-    text-align: center; 
+    text-align: center;
     padding: 0;
 }
 
@@ -137,7 +147,7 @@ table {
 .list-points-of-interest ul {
     list-style-type: none;
     margin: auto;
-    text-align: center; 
+    text-align: center;
     padding: 0;
 }
 
@@ -158,12 +168,12 @@ table {
 
 .display-wikipedia-extract {
     display: inherit;
-    text-align: justify; 
+    text-align: justify;
 }
 
 .display-wikipedia-extract h2 {
     display: inherit;
-    text-align: center; 
+    text-align: center;
     text-transform: uppercase;
     padding-bottom: 15px;
 }
@@ -183,7 +193,7 @@ table {
 
 .list-flickr-photos h2 {
     display: inherit;
-    text-align: center; 
+    text-align: center;
     text-transform: uppercase;
     padding-bottom: 15px;
 }
@@ -191,11 +201,12 @@ table {
 .list-flickr-photos ul {
     list-style-type: none;
     margin: auto;
-    text-align: center; 
+    text-align: center;
     padding: 0;
 }
 
 /* Extra small devices (phones, 600px and down) */
+
 @media only screen and (max-width: 600px) {
     /* For tablets: */
     .col-xs-1 {
@@ -234,19 +245,17 @@ table {
     .col-xs-12 {
         width: 100%;
     }
-
     /* When the screen size is 600px wide or less, hide these elements */
     div.add-points-of-interest {
         display: none;
     }
-
     .filter-points-of-interest li {
         display: block;
     }
-
 }
 
 /* Small devices*/
+
 @media only screen and (min-width: 601px) {
     /* Portrait tablets and large phones, 600px and up */
     .col-s-1 {
@@ -285,7 +294,6 @@ table {
     .col-s-12 {
         width: 100%;
     }
-
 }
 
 /* Medium devices */
