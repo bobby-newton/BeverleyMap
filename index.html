@@ -9,26 +9,26 @@
 <body>
 
   <div>
-  <h2 class="bg-red-darkest header">My Favourite Points-Of-Interest</h2>
+    <h2 class="bg-red-darkest header">My Favourite Points-Of-Interest In Beverley</h2>
   </div>
 
   <div class="row">
 
     <div class="add-points-of-interest col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6 bg-red-light {">
-      <p>
+      <ul>
         <label for="query">Name:</label>
         <input id="query" data-bind="textInput: queryText" />
         <select data-bind="options: availableCategories, value: queryCategory"></select>
         <button data-bind="click: addPointsOfInterest">Add Point-Of-Interest</button>
-      </p>
+      </ul>
     </div>
 
     <div class="filter-points-of-interest col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6 bg-red-light {">
-      <p>
+      <ul>
         <label for="filter">Filter:</label>
         <input id="filter" data-bind="value: filterText, valueUpdate: 'afterkeydown'" />
         <select data-bind="options: availableCategories, value: filterCategory"></select>
-      </p>
+      </ul>
     </div>
 
     <div class="display-google-map col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12" id="beverleyMap">Map appears here</div>
@@ -36,23 +36,20 @@
     <div class="list-points-of-interest col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12 bg-grey-darker">
       <ul data-bind="foreach: filteredPointsOfInterest">
         <li data-bind="click: $root.onClickPointOfInterest">
-          <p data-bind="text: name"><p>
-          <div data-bind="foreach: categories">
-            <p data-bind="text: $data"></p>
-          </div>
+          <p data-bind="text: name"></p>
         </li>
       </ul>
     </div>
 
     <div class="display-wikipedia-extract col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12 bg-grey-dark">
-      <h2>Wikipedia Extracts</h2>
+      <h2 id="extracts-header">Wikipedia Extracts</h2>
       <div id="extracts"></div>
     </div>
 
     <div class="list-flickr-photos col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12 bg-grey-darker">
-      <h2>Flickr Photos</h2>
+      <h2 id="flickr-header">Flickr Photos</h2>
       <p id="tags"></p>
-      <div id="images"></div>
+      <ul id="images"></ul>
     </div>
   </div>
 </body>

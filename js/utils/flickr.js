@@ -33,7 +33,8 @@ function loadFlickrPhotos(tags) {
 
             $.each(data.items, function (i, item) {
 
-                $("<img/>").attr("src", item.media.m).appendTo("#images");
+                console.log(item); 
+                $("<img/>").attr("src", item.media.m).attr("title", item.title).appendTo("#images");
 
             });
 
