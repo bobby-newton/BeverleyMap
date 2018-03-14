@@ -414,22 +414,3 @@ table {
         width: 100%;
     }
 }
-
-/*
-*  The CSS colors below were imported from https://tailwindcss.com/docs/colors
-*/
-.bg-red-darkest {
-    background-color: #3b0d0c;
-}
-  
-.bg-red-light {
-    background-color: #ef5753;
-}
-
-.bg-grey-darker {
-    background-color: #606f7b;
-}
-
-.bg-grey-dark {
-    background-color: #8795a1;
-}
