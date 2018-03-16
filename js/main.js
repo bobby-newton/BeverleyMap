@@ -42,13 +42,13 @@ function PointsOfInterestViewModel() {
 
         searchPointsOfInterest(query, types);
 
-    }
+    };
 
     self.onClickPointOfInterest = function (pointOfInterest) {
         changeMarkerIcon(pointOfInterest);
         loadFlickrPhotos(pointOfInterest.name);
-        loadWikipediaExtracts(pointOfInterest.name)
-    }
+        loadWikipediaExtracts(pointOfInterest.name);
+    };
 
     self.filteredPointsOfInterest = ko.computed(function () {
         var filterCategory = self.filterCategory();
@@ -126,13 +126,13 @@ function updatePointsOfInterest(place, marker) {
 
         placeIds.push(placeId);
 
-        var newPointOfInterest = new PointOfInterest(
-            name = place.name,
-            address = place.formatted_address,
-            coords = new Coords(latitude = place.geometry.location.lat(), longitude = place.geometry.location.lng()),
-            categories = place.types,
-            marker = marker,
-            place = place
+        var newPointOfInterest = new PointOfInterest( 
+          	place.name,
+            place.formatted_address,
+            new Coords(latitude = place.geometry.location.lat(), longitude = place.geometry.location.lng()),
+            place.types,
+            marker,
+            place
         );
 
         pointsOfInterest.push(newPointOfInterest);
