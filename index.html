@@ -22,8 +22,8 @@
         <li><label for="query">New:</label></li>
         <li><input id="query" data-bind="textInput: queryText" /></li>
         <li><select data-bind="options: availableCategories, value: queryCategory"></select></li>
-        <button data-bind="click: addPointsOfInterest">Add</button>
       </ul>
+      <button data-bind="click: addPointsOfInterest">Add</button>
     </div>
 
     <div class="filter-points-of-interest col-xs-12 col-s-6 col-m-6 col-l-6 col-xl-6 bg-red-light {">
@@ -64,7 +64,6 @@
 
   <p class="bg-red-darkest footer ">Developed and powered by Bobby Newton</p>
 
-  <script defer async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1DP9mEFFDEeEOvTT2BxmizqgpN9a1R68&callback=run&libraries=places"></script>
   <script type="text/javascript" src="js/lib/knockout.js"></script>
   <script type="text/javascript" src="js/lib/jquery.min.js"></script>
   <script type="text/javascript" src="js/utils/data.js"></script>
@@ -72,6 +71,8 @@
   <script type="text/javascript" src="js/utils/places.js"></script>
   <script type="text/javascript" src="js/utils/flickr.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
+  <script defer async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1DP9mEFFDEeEOvTT2BxmizqgpN9a1R68&callback=run&libraries=places"></script>
+
 </footer>
 
 </html>
