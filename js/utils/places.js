@@ -1,6 +1,7 @@
 var beverleyMap;
 var service;
 var infowindow;
+var bouncer;
 
 var beverleyLatitude = 53.8411032;
 var beverleyLongitude = -0.4668126;
@@ -62,27 +63,23 @@ function initialiseBeverleyMap() {
 }
 
 function textSearchCallback(results, status) {
-    // console.log("searchPointsOfInterest");
-
+    
     if (status == google.maps.places.PlacesServiceStatus.OK) {
-        // console.log("OK");
-
-        // console.log(results);
-        // console.log(status);
 
         for (var i = 0; i < results.length; i++) {
             var place = results[i];
             var marker = createMarker(place, null);
             updatePointsOfInterest(place, marker);
         }
+
     } else if (status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
-        // console.log("ZERO_RESULTS");
 
         alert("We didn't find any matchs for your search!");
+
     } else {
+
         alert("Oppps! Something went wrong. You may try check your connection and reload the page to see if it works!");
 
-        // console.log("ERROR");
     }
 }
 
@@ -128,10 +125,18 @@ function createMarker(place, image) {
 
         makeWindow(place, marker);
 
+        /* Stop the bouncing marker, if there is one */
+        if ( bouncer && bouncer.getAnimation() !== null ) {
+            bouncer.setAnimation(null);
+            bouncer = null;
+        }
+
+        /* Bounce the clicked marker, and save it as the bouncing one */
         if (marker.getAnimation() !== null) {
             marker.setAnimation(null);
         } else {
             marker.setAnimation(google.maps.Animation.BOUNCE);
+            bouncer = marker;
         }
     });
 
