@@ -138,6 +138,11 @@ function createMarker(place, image) {
             marker.setAnimation(google.maps.Animation.BOUNCE);
             bouncer = marker;
         }
+
+        /* Load Flickr photos for this markers location */
+        loadFlickrPhotos(place.name);
+        loadWikipediaExtracts(place.name);
+
     });
 
     return marker;
