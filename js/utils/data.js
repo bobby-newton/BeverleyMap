@@ -16,3 +16,11 @@ function PointOfInterest(name, address, coords, categories, marker, place) {
     self.beachFlag = "false";
     self.place = place; // A google place
 }
+
+
+// A class that represents a flickr photo
+function FlickrPhoto(url, title) {
+    var self = this;
+    self.url = url;
+    self.title = title;
+}

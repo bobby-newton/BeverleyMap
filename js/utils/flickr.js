@@ -1,7 +1,7 @@
 var FLICKR_URL_TEMP = 'http://api.flickr.com/services/feeds/photos_public.gne?tags=%TAGS%&tagmode=and&format=json';
 var FLICKR_TAGS_DEFAULT = "Beverley, UK";
 
-function loadFlickrPhotos(tags) {
+function loadFlickrPhotos(tags, flickrHeader, flickrError, flickrPhotos) {
 
     var normalizedTags;
     if (tags) {
@@ -19,30 +19,31 @@ function loadFlickrPhotos(tags) {
         jsonp: 'jsoncallback',
         success: function (data) {
 
-            $("#flickr-header").html("Flickr Photos");
+            flickrHeader("Flickr Photos :: " + tags);
+            flickrError("");
+            flickrPhotos([]);
 
             if (data.items.length === 0) {
-                $("#images").hide();
-                $("#flickr-header").html("Flickr Photos :: " + tags);
-                $("#tags").html("Oooops! There are no photos for this point-of-interest.");
+
+                flickrError("Oooops! There are no photos for this point-of-interest.");
+
             } else {
-                $("#flickr-header").html("Flickr Photos :: " + tags);
-                $("#images").hide().html(data).fadeIn('fast');
-                $("#tags").html("");
+
+                $.each(data.items, function (i, item) {
+
+                    var url = item.media.m;
+                    var title = item.title;
+                    var flickrPhoto = new FlickrPhoto(url, title);
+                    flickrPhotos.push(flickrPhoto);
+
+                });
+
             }
-
-            $.each(data.items, function (i, item) {
-
-                console.log(item);
-                $("<img/>").attr("src", item.media.m).attr("title", item.title).appendTo("#images");
-
-            });
 
         },
         error: function () {
 
-            $("#images").hide();
-            $("#tags").html("<p>Oooops! We didn't find any Flickr photos for " + tags);
+            flickrError("Oooops! We didn't find any Flickr photos for this point-of-interest.");
 
         }
     });
