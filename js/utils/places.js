@@ -25,11 +25,11 @@ function searchPointsOfInterest(query, types) {
 }
 
 function showMarker(marker) {
-    marker.setMap(beverleyMap);
+        marker.setMap(beverleyMap);
 }
 
 function hideMarker(marker) {
-    marker.setMap(null);
+        marker.setMap(null);
 }
 
 function loadMarkers(defaultPlacesIds) {
@@ -85,21 +85,21 @@ function textSearchCallback(results, status) {
 
 function changeMarkerIcon(pointOfInterest) {
     hideMarker(pointOfInterest.marker);
-
-    var name = pointOfInterest.name;
-    var place = pointOfInterest.place;
-
-    if (pointOfInterest.beachFlag === "true") {
-        pointOfInterest.marker = createMarker(place, null);
-        pointOfInterest.beachFlag = "false";
-    } else {
-        pointOfInterest.marker = createMarker(place, beachflagIcon);
-        pointOfInterest.beachFlag = "true";
+    
+        var name = pointOfInterest.name;
+        var place = pointOfInterest.place;
+    
+        if (pointOfInterest.beachFlag === "true") {
+            pointOfInterest.marker = createMarker(place, null);
+            pointOfInterest.beachFlag = "false";
+        } else {
+            pointOfInterest.marker = createMarker(place, beachflagIcon);
+            pointOfInterest.beachFlag = "true";
+        }
+    
+        makeWindow(pointOfInterest.place, pointOfInterest.marker);
+    
     }
-
-    makeWindow(pointOfInterest.place, pointOfInterest.marker);
-
-}
 
 
 function detailsCallback(place, status) {
@@ -140,8 +140,8 @@ function createMarker(place, image) {
         }
 
         /* Load Flickr photos for this markers location */
-        loadFlickrPhotos(place.name);
-        loadWikipediaExtracts(place.name);
+        loadFlickrPhotos(place.name, pointsOfInterestViewModel.flickrHeader, pointsOfInterestViewModel.flickrError, pointsOfInterestViewModel.flickrPhotos);
+        loadWikipediaExtracts(place.name, pointsOfInterestViewModel.wikipediaHeader, pointsOfInterestViewModel.wikipediaExtracts );
 
     });
 
@@ -149,7 +149,6 @@ function createMarker(place, image) {
 }
 
 function makeWindow(place, marker) {
-    console.log(place);
 
     var name = place.name;
     var address = place.formatted_address;
