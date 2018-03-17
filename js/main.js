@@ -22,6 +22,9 @@ function PointsOfInterestViewModel() {
     self.filterText = ko.observable();
     self.filterCategory = ko.observable("all");
 
+    self.wikipediaHeader = ko.observable("Wikipedia Extract");
+    self.wikipediaExtracts = ko.observableArray([]);
+
     // Initialise an empty map with the center placed on Beverley
     initialiseBeverleyMap();
 
@@ -47,7 +50,7 @@ function PointsOfInterestViewModel() {
     self.onClickPointOfInterest = function (pointOfInterest) {
         changeMarkerIcon(pointOfInterest);
         loadFlickrPhotos(pointOfInterest.name);
-        loadWikipediaExtracts(pointOfInterest.name);
+        loadWikipediaExtracts(pointOfInterest.name, self.wikipediaHeader, self.wikipediaExtracts);
     };
 
     self.filteredPointsOfInterest = ko.computed(function () {
@@ -156,9 +159,12 @@ function updateAvailableCategories(categories) {
 }
 
 function run() {
-    ko.applyBindings(new PointsOfInterestViewModel());
+
+    var pointsOfInterestViewModel = new PointsOfInterestViewModel();
+    
+    ko.applyBindings(pointsOfInterestViewModel);
 
     loadFlickrPhotos();
-    loadWikipediaExtracts();
+    loadWikipediaExtracts( null, pointsOfInterestViewModel.wikipediaHeader, pointsOfInterestViewModel.wikipediaExtracts );
 
 }

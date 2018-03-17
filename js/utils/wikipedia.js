@@ -4,7 +4,7 @@ var WIKIPEDIA_URL_TEMP =
 
 var WIKIPEDIA_TITLE_DEFAULT = "Beverley";
 
-function loadWikipediaExtracts(title) {
+function loadWikipediaExtracts(title, wikipediaHeader, wikipediaExtracts ) {
 
     if (!title) {
         title = WIKIPEDIA_TITLE_DEFAULT;
@@ -17,27 +17,28 @@ function loadWikipediaExtracts(title) {
         dataType: 'jsonp',
         success: function (data) {
 
-            $("#extracts").html("");
-            $("#extracts-header").html("Wikipedia Extract");
+            wikipediaHeader( "Wikipedia Extract :: " + title );
+            wikipediaExtracts([]);
 
             for (var key in data.query.pages) {
-
+                
                 if (key != "-1") {
-                    $("#extracts-header").html("Wikipedia Extract :: " + title);
-                    $("#extracts").append("<p>" + data.query.pages[key].extract + "</p>");
+
+                    wikipediaExtracts.push( data.query.pages[key].extract );
+
                 } else {
-                    $("#extracts-header").html("Wikipedia Extract :: " + title);
-                    $("#extracts").html("Oooops! There  aren't any Wikipedia extracts for this point-of-interest.");
+
+                    wikipediaExtracts(["Oooops! There  aren't any Wikipedia extracts for this point-of-interest."]);
+
                 }
 
             }
 
-
         },
         error: function () {
 
-            $("#extracts").html("");
-            $("#extracts").append("<p>Oooops! We didn't find any Wikipedia extracts for " + title + "</p>");
+            wikipediaHeader( "Wikipedia Extract :: " + title );
+            wikipediaExtracts(["Oooops! We didn't find any Wikipedia extracts for this point-of-interest."]);
 
         }
     });

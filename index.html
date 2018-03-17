@@ -49,8 +49,10 @@
     </div>
 
     <div class="display-wikipedia-extract col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12 bg-grey-dark">
-      <h2 id="extracts-header">Wikipedia Extracts</h2>
-      <div id="extracts"></div>
+      <h2 data-bind="text: wikipediaHeader">Wikipedia Extracts</h2>
+      <div data-bind="foreach: wikipediaExtracts">
+        <p data-bind="text: $data"></p>
+      </div>
     </div>
 
     <div class="list-flickr-photos col-xs-12 col-s-12 col-m-12 col-l-12 col-xl-12 bg-grey-darker">
