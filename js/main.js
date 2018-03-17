@@ -159,9 +159,10 @@ function updateAvailableCategories(categories) {
     }
 }
 
+var pointsOfInterestViewModel;
 function run() {
 
-    var pointsOfInterestViewModel = new PointsOfInterestViewModel();
+    pointsOfInterestViewModel = new PointsOfInterestViewModel();
     
     ko.applyBindings(pointsOfInterestViewModel);
 
